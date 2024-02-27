@@ -2,11 +2,14 @@ package com.nttdata.microservicios.commons.alumnos.models.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -31,12 +34,16 @@ public class Alumno {
 	@Column(name = "create_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createAt;
-	
+	@Lob
+	@JsonIgnore
+	private byte[] foto;
 	@PrePersist
 	public void prePersist() {
 		this.createAt = new Date();
 	}
-	
+	public Integer getFotoHashCode() {
+		return (this.foto!=null) ? this.foto.hashCode() : null;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -66,6 +73,14 @@ public class Alumno {
 	}
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
+	}
+
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
 	}
 
 	@Override
