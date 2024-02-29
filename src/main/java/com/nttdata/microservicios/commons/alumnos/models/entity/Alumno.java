@@ -35,6 +35,7 @@ public class Alumno {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createAt;
 	@Lob
+	@Column(columnDefinition = "longblob")
 	@JsonIgnore
 	private byte[] foto;
 	@PrePersist
